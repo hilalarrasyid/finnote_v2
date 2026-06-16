@@ -1,0 +1,546 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: #111;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 16px;
+  padding-bottom: 90px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.card {
+  background: #1e1e1e;
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+input {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: #2b2b2b;
+  color: white;
+}
+
+button {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.smallButton {
+  width: 48px;
+  height: 48px;
+  background: #2d7ef7;
+  color: white;
+  font-size: 18px;
+}
+
+.card button:not(.smallButton) {
+  width: 100%;
+  padding: 12px;
+  background: #2d7ef7;
+  color: white;
+  font-weight: bold;
+}
+
+/* DATE RANGE */
+
+.dateRange {
+  display: flex;
+  gap: 12px;
+}
+
+.dateField {
+  flex: 1;
+}
+
+.dateField label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.dateField input {
+  margin-bottom: 0;
+}
+
+/* SUMMARY */
+
+.total {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.transactionCount {
+  opacity: 0.7;
+}
+
+/* TOP POCKETS */
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #333;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.row span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row strong {
+  margin-left: 12px;
+  text-align: right;
+}
+
+/* RECENT EXPENSES */
+
+.expenseCard {
+  padding: 12px 0;
+  border-bottom: 1px solid #333;
+}
+
+.expenseCard:last-child {
+  border-bottom: none;
+}
+
+.expenseCategory {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-bottom: 4px;
+}
+
+.expenseDescription {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.expenseMeta {
+  font-size: 12px;
+  opacity: 0.65;
+  margin-bottom: 6px;
+}
+
+.expenseAmount {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* BOTTOM NAV */
+
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  background: #1a1a1a;
+  border-top: 1px solid #333;
+
+  display: flex;
+  justify-content: space-around;
+
+  padding: 10px 0;
+
+  z-index: 100;
+}
+
+.bottomNav button {
+  background: transparent;
+  color: #888;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 4px;
+
+  font-size: 20px;
+}
+
+.bottomNav button span {
+  font-size: 11px;
+}
+
+.bottomNav button.active {
+  color: #2d7ef7;
+}
+
+.expenseListItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid #333;
+}
+
+.expenseListItem:last-child {
+  border-bottom: none;
+}
+
+.expenseIcon {
+  width: 54px;
+  height: 54px;
+
+  border-radius: 16px;
+
+  background: #14212e;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 22px;
+
+  flex-shrink: 0;
+}
+
+.expenseContent {
+  flex: 1;
+}
+
+.expenseTitle {
+  font-size: 18px;
+  font-weight: 700;
+
+  margin-bottom: 4px;
+}
+
+.expenseSubtitle {
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+.expenseAmountRight {
+  font-size: 16px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.floatingButton {
+  position: fixed;
+
+  right: 20px;
+  bottom: 90px;
+
+  width: 60px;
+  height: 60px;
+
+  border-radius: 50%;
+
+  background: #2d7ef7;
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/* MOBILE SAFE AREA */
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .bottomNav {
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  }
+}
+
+/* EXPENSES PAGE */
+
+.expenseListItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid #333;
+}
+
+.expenseListItem:last-child {
+  border-bottom: none;
+}
+
+.expenseIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+
+  background: #0f2742;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+
+  flex-shrink: 0;
+}
+
+.expenseContent {
+  flex: 1;
+  text-align: left;
+}
+
+.expenseTitle {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.expenseSubtitle {
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+.expenseAmountRight {
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.floatingButton {
+  position: fixed;
+
+  right: 20px;
+  bottom: 120px;
+
+  width: 60px;
+  height: 60px;
+
+  border-radius: 50%;
+
+  background: #2d7ef7;
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 32px;
+  font-weight: bold;
+
+  z-index: 999;
+}
+
+.searchBox {
+  margin-bottom: 16px;
+}
+
+.searchBox input {
+  background: #1e1e1e;
+  color: white;
+
+  border: 1px solid #333;
+  border-radius: 16px;
+
+  padding: 14px 16px;
+
+  margin-bottom: 0;
+
+  font-size: 15px;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.7);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
+}
+
+.modalCard {
+  width: 90%;
+  max-width: 450px;
+
+  background: #1e1e1e;
+
+  border-radius: 20px;
+
+  padding: 20px;
+}
+
+.modalCard select {
+  width: 100%;
+
+  margin-bottom: 12px;
+
+  padding: 12px;
+
+  background: #2b2b2b;
+  color: white;
+
+  border: 1px solid #333;
+  border-radius: 12px;
+}
+
+.modalButtonSecondary {
+  background: #444 !important;
+  margin-top: 8px;
+}
+
+.modalCard input[type='number'] {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.modalCard h2 {
+  font-size: 32px;
+  font-weight: 700;
+
+  text-align: center;
+
+  margin-bottom: 24px;
+}
+
+.modalActions {
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 20px;
+}
+
+.modalActions button {
+  flex: 1;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 10px 0;
+
+  border-bottom: 1px solid #333;
+}
+
+.summaryRow:last-child {
+  border-bottom: none;
+}
+
+.summaryName {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.summaryAmount {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.summaryPercentage {
+  font-size: 12px;
+  color: #999;
+  margin-top: 2px;
+  text-align: left;
+}
+
+.summaryLeft {
+  flex: 1;
+  min-width: 0;
+}
+
+.summaryAmount {
+  flex-shrink: 0;
+
+  text-align: right;
+
+  font-weight: 700;
+}
+
+.fab {
+  position: fixed;
+
+  right: 24px;
+  bottom: 90px;
+
+  width: 64px;
+  height: 64px;
+
+  border-radius: 50%;
+
+  border: none;
+
+  font-size: 32px;
+
+  cursor: pointer;
+}
+
+.iconGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.iconButton {
+  height: 50px;
+  border-radius: 12px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.iconButtonSelected {
+  height: 50px;
+  border-radius: 12px;
+  border: 2px solid #3b82f6;
+  font-size: 24px;
+  cursor: pointer;
+}
