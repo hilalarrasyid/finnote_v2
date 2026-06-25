@@ -17,6 +17,10 @@ export default function SummaryPage({
   expenses,
   activePage,
   setActivePage,
+  startDate,
+  endDate,
+  setStartDate,
+  setEndDate,
 }: Props) {
   const categoryMap: Record<string, { amount: number; icon: string; color: string; }> = {};
   const pocketMap: Record<string, number> = {};
