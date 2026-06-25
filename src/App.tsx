@@ -7,10 +7,12 @@ import SummaryPage from './pages/SummaryPage';
 import PocketsPage from './pages/PocketsPage';
 import ExpensesPage from './pages/ExpensesPage';
 import CategoriesPage from './pages/CategoriesPage';
-import type { ExpenseDetail, 
+import type {
+  ExpenseDetail,
   PocketSummary,
   Pocket,
-  Category, } from './types/Expense';
+  Category,
+} from './types/Expense';
 
 export default function App() {
   const [activePage, setActivePage] = useState('home');
@@ -284,20 +286,20 @@ export default function App() {
     name: string,
     color: string
   ) {
-      if (!supabase) return;
-      const result = await supabase
-        .from('pockets')
-        .update({
-          name,
-          color,
-        })
-        .eq('id', pocketId);
-      if (result.error) {
-        alert(result.error.message);
-        return false;
-      }
-      await loadData();
-      return true;
+    if (!supabase) return;
+    const result = await supabase
+      .from('pockets')
+      .update({
+        name,
+        color,
+      })
+      .eq('id', pocketId);
+    if (result.error) {
+      alert(result.error.message);
+      return false;
+    }
+    await loadData();
+    return true;
   }
 
   async function deletePocket(
@@ -352,6 +354,12 @@ export default function App() {
         expenses={expenses}
         activePage={activePage}
         setActivePage={setActivePage}
+
+        startDate={startDate}
+        endDate={endDate}
+
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
       />
     );
   }
@@ -377,7 +385,7 @@ export default function App() {
         setActivePage={setActivePage}
         onSaveCategory={addCategory}
         onUpdateCategory={updateCategory}
-        onDeleteCategory={deleteCategory} 
+        onDeleteCategory={deleteCategory}
       />
     );
   }

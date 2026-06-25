@@ -5,7 +5,11 @@ type Props = {
   expenses: ExpenseDetail[];
 
   activePage: string;
+  startDate: string;
+  endDate: string;
 
+  setStartDate: (date: string) => void;
+  setEndDate: (date: string) => void;
   setActivePage: (page: string) => void;
 };
 
@@ -14,7 +18,7 @@ export default function SummaryPage({
   activePage,
   setActivePage,
 }: Props) {
-  const categoryMap: Record<string, {amount: number; icon: string; color: string;}> = {};
+  const categoryMap: Record<string, { amount: number; icon: string; color: string; }> = {};
   const pocketMap: Record<string, number> = {};
   const totalExpense = expenses.reduce(
     (sum, item) => sum + Number(item.amount || 0),
@@ -44,13 +48,13 @@ export default function SummaryPage({
   });
 
   const categoryData = Object.entries(categoryMap)
-  .map(([name, data]) => ({
-    name,
-    amount: data.amount,
-    icon: data.icon,
-    color: data.color,
-  }))
-  .sort((a, b) => b.amount - a.amount);
+    .map(([name, data]) => ({
+      name,
+      amount: data.amount,
+      icon: data.icon,
+      color: data.color,
+    }))
+    .sort((a, b) => b.amount - a.amount);
 
   const pocketData = Object.entries(pocketMap)
     .map(([name, amount]) => ({
@@ -72,7 +76,31 @@ export default function SummaryPage({
       <div className="header">
         <h1>Summary</h1>
       </div>
-      <br/>
+      <br />
+
+      <div className="card">
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <div style={{ flex: 1 }}>
+            <label>From</label>
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="modalInput"
+            />
+          </div>
+
+          <div style={{ flex: 1 }}>
+            <label>To</label>
+            <input
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              className="modalInput"
+            />
+          </div>
+        </div>
+      </div>
 
       <div className="card">
         <h2>Expense by Category</h2>
