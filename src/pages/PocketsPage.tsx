@@ -10,19 +10,19 @@ type Props = {
   setActivePage: (page: string) => void;
 
   onSavePocket: (
-        name: string,
-        color: string
-    ) => Promise<boolean | undefined>;
+    name: string,
+    color: string
+  ) => Promise<boolean | undefined>;
 
   onUpdatePocket: (
-        pocketId: string,
-        name: string,
-        color: string
-    ) => Promise<boolean | undefined>;
+    pocketId: string,
+    name: string,
+    color: string
+  ) => Promise<boolean | undefined>;
 
   onDeletePocket: (
-        pocketId: string
-    ) => Promise<boolean | undefined>;
+    pocketId: string
+  ) => Promise<boolean | undefined>;
 
 };
 
@@ -35,20 +35,20 @@ export default function PocketsPage({
   onDeletePocket,
 }: Props) {
 
-    const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-    const [pocketName, setPocketName] = useState('');
+  const [pocketName, setPocketName] = useState('');
 
-    const [pocketColor, setPocketColor] = useState('#3B82F6');
+  const [pocketColor, setPocketColor] = useState('#3B82F6');
 
-    const [editingPocketId, setEditingPocketId] = useState<string | null>(null);
+  const [editingPocketId, setEditingPocketId] = useState<string | null>(null);
 
-    function startEdit(pocket: Pocket) {
-        setEditingPocketId(pocket.id);
-        setPocketName(pocket.name);
-        setPocketColor(pocket.color);
-        setShowModal(true);
-    }
+  function startEdit(pocket: Pocket) {
+    setEditingPocketId(pocket.id);
+    setPocketName(pocket.name);
+    setPocketColor(pocket.color);
+    setShowModal(true);
+  }
 
   return (
     <div className="container">
@@ -92,139 +92,139 @@ export default function PocketsPage({
       <button
         className="fab"
         onClick={() => {
-            setEditingPocketId(null);
+          setEditingPocketId(null);
 
-            setPocketName('');
+          setPocketName('');
 
-            setPocketColor('#3B82F6');
+          setPocketColor('#3B82F6');
 
-            setShowModal(true);
+          setShowModal(true);
         }}
-        >
+      >
         +
-        </button>
+      </button>
       {showModal && (
         <div className="modalOverlay">
-            <div className="modalCard">
+          <div className="modalCard">
             <h2> {editingPocketId ? 'Edit Pocket' : 'Add Pocket'}</h2>
 
             <input
-                className="modalInput"
-                placeholder="Pocket Name"
-                value={pocketName}
-                onChange={(e) =>
+              className="modalInput"
+              placeholder="Pocket Name"
+              value={pocketName}
+              onChange={(e) =>
                 setPocketName(e.target.value)
-                }
+              }
             />
 
             <input
-                type="color"
-                value={pocketColor}
-                onChange={(e) =>
-                    setPocketColor(e.target.value)
-                }
-                style={{
-                    width: '120px',
-                    height: '50px',
-                    border: 'none',
-                    background: 'transparent',
-                    margin: '0 auto',
-                    display: 'block',
-                }}
-                />
+              type="color"
+              value={pocketColor}
+              onChange={(e) =>
+                setPocketColor(e.target.value)
+              }
+              style={{
+                width: '120px',
+                height: '50px',
+                border: 'none',
+                background: 'transparent',
+                margin: '0 auto',
+                display: 'block',
+              }}
+            />
 
             <div
-            style={{
+              style={{
                 textAlign: 'center',
                 marginTop: '8px',
-            }}
+              }}
             >
-            {pocketColor}
+              {pocketColor}
             </div>
 
             <div className="modalActions">
-                
-                <button
+
+              <button
                 onClick={async () => {
-                    if (!pocketName.trim()) {
+                  if (!pocketName.trim()) {
                     alert('Pocket name is required');
                     return;
-                    }
+                  }
 
-                    let success;
+                  let success;
 
-                    if (editingPocketId) {
+                  if (editingPocketId) {
                     success =
-                        await onUpdatePocket(
+                      await onUpdatePocket(
                         editingPocketId,
                         pocketName,
                         pocketColor
-                        );
-                    } else {
+                      );
+                  } else {
                     success =
-                        await onSavePocket(
+                      await onSavePocket(
                         pocketName,
                         pocketColor
-                        );
-                    }
+                      );
+                  }
 
-                    if (success) {
+                  if (success) {
                     setShowModal(false);
                     setPocketName('');
                     setPocketColor('#3B82F6');
                     setEditingPocketId(null);
-                    }
+                  }
                 }}
-                >
+              >
                 {editingPocketId ? 'Update' : 'Save'}
-                </button>
+              </button>
 
-                {editingPocketId && (
+              {editingPocketId && (
                 <button
-                    className="deleteButton"
-                    onClick={async () => {
+                  className="deleteButton"
+                  onClick={async () => {
                     const confirmed = confirm(
-                        'Delete this pocket?'
+                      'Delete this pocket?'
                     );
 
                     if (!confirmed) return;
 
                     const success =
-                        await onDeletePocket(
+                      await onDeletePocket(
                         editingPocketId
-                        );
+                      );
 
                     if (success) {
-                        setShowModal(false);
-                        setPocketName('');
-                        setPocketColor('#3B82F6');
-                        setEditingPocketId(null);
+                      setShowModal(false);
+                      setPocketName('');
+                      setPocketColor('#3B82F6');
+                      setEditingPocketId(null);
                     }
-                    }}
+                  }}
                 >
-                    Delete
+                  Delete
                 </button>
-                )}
+              )}
 
-                <button
+              <button
                 className="modalButtonSecondary"
                 onClick={() => {
-                    setShowModal(false);
+                  setShowModal(false);
 
-                    setPocketName('');
+                  setPocketName('');
 
-                    setPocketColor('#3B82F6');
+                  setPocketColor('#3B82F6');
 
-                    setEditingPocketId(null);
+                  setEditingPocketId(null);
                 }}
-                >
+              >
                 Cancel
-                </button>
-                
+              </button>
+
             </div>
+          </div>
         </div>
-    </div>
-    )}
+      )}
 
       <BottomNav
         activePage={activePage}
