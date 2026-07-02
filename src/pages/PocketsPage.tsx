@@ -4,7 +4,6 @@ import type { Pocket } from '../types/Expense';
 
 type Props = {
   pockets: Pocket[];
-
   activePage: string;
 
   setActivePage: (page: string) => void;
