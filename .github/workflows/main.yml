@@ -5,16 +5,46 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   mirror:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout source repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
 
-      - name: Push to GitHub aditya-project26
+      - name: Show Git Version
         run: |
-          git remote add mirror https://x-access-token:${{ secrets.GH_ADITYA_TOKEN }}@github.com/aditya-project26/finnote.git
-          git push --mirror mirror
+          git --version
+
+      - name: Check Secret
+        env:
+          TOKEN: ${{ secrets.GH_ADITYA_TOKEN }}
+        run: |
+          echo "Token length: ${#TOKEN}"
+          if [ -z "$TOKEN" ]; then
+            echo "ERROR: GH_ADITYA_TOKEN is empty"
+            exit 1
+          fi
+
+      - name: Configure Remote
+        env:
+          TOKEN: ${{ secrets.GH_ADITYA_TOKEN }}
+        run: |
+          git remote remove mirror || true
+          git remote add mirror https://x-access-token:${TOKEN}@github.com/aditya-project26/finnote.git
+          git remote -v
+
+      - name: Push All Branches
+        run: |
+          git push mirror --all
+
+      - name: Push All Tags
+        run: |
+          git push mirror --tags
