@@ -301,20 +301,20 @@ export default function ExpensesPage({
 
                   const success = editingExpenseId
                     ? await onUpdateExpense(
-                        editingExpenseId,
-                        Number(amount),
-                        description,
-                        categoryId,
-                        pocketId,
-                        expenseDate
-                      )
+                      editingExpenseId,
+                      Number(amount),
+                      description,
+                      categoryId,
+                      pocketId,
+                      expenseDate
+                    )
                     : await onSaveExpense(
-                        Number(amount),
-                        description,
-                        categoryId,
-                        pocketId,
-                        expenseDate
-                      );
+                      Number(amount),
+                      description,
+                      categoryId,
+                      pocketId,
+                      expenseDate
+                    );
 
                   setSaving(false);
 
