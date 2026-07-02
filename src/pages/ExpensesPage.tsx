@@ -61,6 +61,7 @@ export default function ExpensesPage({
 
   const [categoryId, setCategoryId] = useState('');
   const [pocketId, setPocketId] = useState('');
+
   const [expenseDate, setExpenseDate] = useState(
     new Date().toISOString().split('T')[0]
   );
