@@ -11,6 +11,8 @@ type Props = {
   setStartDate: (date: string) => void;
   setEndDate: (date: string) => void;
   setActivePage: (page: string) => void;
+
+  onCategoryClick: (categoryName: string) => void;
 };
 
 export default function SummaryPage({
@@ -21,6 +23,7 @@ export default function SummaryPage({
   endDate,
   setStartDate,
   setEndDate,
+  onCategoryClick,
 }: Props) {
   const categoryMap: Record<string, { amount: number; icon: string; color: string; }> = {};
   const pocketMap: Record<string, number> = {};
@@ -110,7 +113,7 @@ export default function SummaryPage({
         <h2>Expense by Category</h2>
       </div>
       {categoryData.map((item) => (
-        <div key={item.name} className="summaryRow">
+        <div key={item.name} className="summaryRow summaryRowClickable" onClick={() => onCategoryClick(item.name)}>
           <div
             style={{
               display: 'flex',

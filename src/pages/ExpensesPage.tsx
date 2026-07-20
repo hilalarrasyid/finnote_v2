@@ -21,6 +21,13 @@ type Props = {
   activePage: string;
 
   setActivePage: (page: string) => void;
+
+  selectedCategoryFilter: string | null;
+
+  setSelectedCategoryFilter: (
+    categoryName: string | null
+  ) => void;
+
   onDeleteExpense: (expenseId: string) => Promise<boolean | undefined>;
 
   onSaveExpense: (
@@ -47,6 +54,10 @@ export default function ExpensesPage({
   pockets,
   activePage,
   setActivePage,
+
+  selectedCategoryFilter,
+  setSelectedCategoryFilter,
+
   onSaveExpense,
   onUpdateExpense,
   onDeleteExpense,
@@ -95,12 +106,17 @@ export default function ExpensesPage({
   const filteredExpenses = expenses.filter((item) => {
     const search = searchTerm.toLowerCase();
 
-    return (
+    const matchesSearch =
       (item.description || '').toLowerCase().includes(search) ||
       (item.category_name || '').toLowerCase().includes(search) ||
       (item.pocket_name || '').toLowerCase().includes(search) ||
-      String(item.amount).includes(search)
-    );
+      String(item.amount).includes(search);
+
+    const matchesCategory =
+      !selectedCategoryFilter ||
+      item.category_name === selectedCategoryFilter;
+
+    return matchesSearch && matchesCategory;
   });
 
   const sortedExpenses = [...filteredExpenses].sort((a, b) => {
@@ -137,6 +153,22 @@ export default function ExpensesPage({
       <div className="header">
         <h1>Expenses</h1>
       </div>
+
+      {selectedCategoryFilter && (
+        <div className="activeFilter">
+          <div>
+            Category Filter:
+            <strong> {selectedCategoryFilter}</strong>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setSelectedCategoryFilter(null)}
+          >
+            Clear
+          </button>
+        </div>
+      )}
 
       <div className="card">
         <div>

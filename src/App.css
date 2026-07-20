@@ -544,3 +544,55 @@ button {
   font-size: 24px;
   cursor: pointer;
 }
+
+/* CLICKABLE SUMMARY CATEGORY */
+
+.summaryRowClickable {
+  cursor: pointer;
+  border-radius: 12px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.summaryRowClickable:hover {
+  background: #252525;
+}
+
+.summaryRowClickable:active {
+  background: #303030;
+}
+
+/* ACTIVE EXPENSE FILTER */
+
+.activeFilter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 14px;
+
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+.activeFilter button {
+  width: auto;
+  flex-shrink: 0;
+
+  padding: 8px 12px;
+
+  background: #444;
+  color: white;
+
+  font-weight: 600;
+}
+
+.emptyState {
+  padding: 24px 12px;
+  text-align: center;
+  opacity: 0.65;
+}

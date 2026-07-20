@@ -1,4 +1,4 @@
-// set PATH=C:\Users\AdityaPANDU\Downloads\node-v22.22.3-win-x64;%PATH%
+// pake terminal CMD, set PATH=C:\Users\AdityaPANDU\Downloads\node-v22.22.3-win-x64;%PATH%
 import HomePage from './pages/HomePage';
 import { useEffect, useMemo, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
@@ -16,6 +16,9 @@ import type {
 
 export default function App() {
   const [activePage, setActivePage] = useState('home');
+
+  const [selectedCategoryFilter, setSelectedCategoryFilter] =
+    useState<string | null>(null);
 
   const [showSettings, setShowSettings] = useState(
     !localStorage.getItem('supabase_url')
@@ -43,6 +46,11 @@ export default function App() {
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [pockets, setPockets] = useState<Pocket[]>([]);
+
+  function openExpensesByCategory(categoryName: string) {
+    setSelectedCategoryFilter(categoryName);
+    setActivePage('expenses');
+  }
 
   const supabase = useMemo(() => {
     if (!url || !key) return null;
@@ -341,6 +349,10 @@ export default function App() {
         pockets={pockets}
         activePage={activePage}
         setActivePage={setActivePage}
+
+        selectedCategoryFilter={selectedCategoryFilter}
+        setSelectedCategoryFilter={setSelectedCategoryFilter}
+
         onSaveExpense={addExpense}
         onUpdateExpense={updateExpense}
         onDeleteExpense={deleteExpense}
@@ -360,6 +372,8 @@ export default function App() {
 
         setStartDate={setStartDate}
         setEndDate={setEndDate}
+
+        onCategoryClick={openExpensesByCategory}
       />
     );
   }
