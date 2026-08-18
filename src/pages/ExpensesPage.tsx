@@ -257,6 +257,12 @@ export default function ExpensesPage({
         >
           <div className="modalCard" onClick={(e) => e.stopPropagation()}>
             <h2>{editingExpenseId ? 'Edit Expense' : 'Add Expense'}</h2>
+            <label>Date</label>
+            <input
+              type="date"
+              value={expenseDate}
+              onChange={(e) => setExpenseDate(e.target.value)}
+            />
 
             <input
               type="number"
@@ -301,12 +307,6 @@ export default function ExpensesPage({
                 </option>
               ))}
             </select>
-            <label>Date</label>
-            <input
-              type="date"
-              value={expenseDate}
-              onChange={(e) => setExpenseDate(e.target.value)}
-            />
 
             <div className="modalActions">
               <button
